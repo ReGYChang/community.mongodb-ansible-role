@@ -9,6 +9,5 @@ gnu_c_lib: glibc
 # 0=disable swapping; 1=swap only to avoid OOM; 60=swap often; 100=swap aggressively
 swappiness: "1"
 
-nproc_and_nofile_limit: 64000
 # TODO: mongo suggests infinity here
 memlock_limit: 1024

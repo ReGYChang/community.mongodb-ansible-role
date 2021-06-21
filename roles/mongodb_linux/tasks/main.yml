@@ -1,0 +1,70 @@
+---
+# task file for linux configuration
+
+- name: Include OS-specific vars
+  vars_files:
+    - "{{ ansible_facts.distribution }}-{{ ansible_distribution_major_version }}.yml"
+
+- name: Disable selinux
+  lineinfile:
+    dest: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=disabled'
+
+# https://docs.mongodb.com/manual/tutorial/transparent-huge-pages/
+- name: Ensure thp-disable service exists
+  copy:
+    src: thp-disable.service
+    dest: /etc/systemd/system/disable-transparent-huge-pages.service
+    owner: root
+    group: root
+  notify: Reload systemd
+
+- name: Check if disable-transparent-huge-pages service is already run
+  shell: cat /sys/kernel/mm/transparent_hugepage/enabled | grep -o "never"
+  register: _huge_page_status
+  ignore_errors: yes
+  changed_when: _huge_page_status.stdout == ""
+
+- name: Enable disable-transparent-huge-pages service
+  service:
+    name: disable-transparent-huge-pages
+    state: started
+    enabled: yes
+  when: _huge_page_status.stdout == ""
+
+- name: Ensure NUMA zone reclaim is disabled
+  sysctl:
+    name: vm.zone_reclaim_mode
+    value: 0
+    state: present
+    reload: yes
+
+# - name: Disable NUMA in RHEL
+
+- name: Set nproc and nofile
+  copy:
+    src: 90-nproc.conf
+    dest: /etc/security/limits.d/90-nproc.conf
+    owner: root
+    group: root
+
+- name: Set swappiness
+  sysctl:
+    name: vm.swappiness
+    value: "{{ swappiness }}"
+    state: present
+
+- name: Ensure ntp service is installed
+  package:
+    name: "{{ ntp_package }}"
+    state: present
+  register: _pkg
+  until: _pkg is succeeded
+  retries: 5
+
+- name: Ensure ntp service is configured
+  service:
+    name: "{{ ntp_service }}"
+    state: started
+    enabled: yes

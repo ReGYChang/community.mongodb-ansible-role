@@ -2,8 +2,15 @@
 # task file for linux configuration
 
 - name: Include OS-specific vars
-  vars_files:
-    - "{{ ansible_facts.distribution }}-{{ ansible_distribution_major_version }}.yml"
+  include_vars:
+    file: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      paths:
+        - "vars"
+      files:
+        - "{{ ansible_facts.distribution }}-{{ ansible_distribution_major_version }}.yml"
+
 
 - name: Disable selinux
   lineinfile:
@@ -28,7 +35,7 @@
 
 - name: Enable disable-transparent-huge-pages service
   service:
-    name: disable-transparent-huge-pages
+    name: thp-disable
     state: started
     enabled: yes
   when: _huge_page_status.stdout == ""
@@ -36,7 +43,7 @@
 - name: Ensure NUMA zone reclaim is disabled
   sysctl:
     name: vm.zone_reclaim_mode
-    value: 0
+    value: '0'
     state: present
     reload: yes
 

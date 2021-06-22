@@ -28,17 +28,17 @@
   notify: Reload systemd
 
 - name: Check if disable-transparent-huge-pages service is already run
-  shell: cat /sys/kernel/mm/transparent_hugepage/enabled | grep -o "never"
+  shell: cat /sys/kernel/mm/transparent_hugepage/enabled
   register: _huge_page_status
   ignore_errors: yes
-  changed_when: _huge_page_status.stdout == ""
+  changed_when: _huge_page_status.stdout == "[always] madvise never"
 
 - name: Enable disable-transparent-huge-pages service
   service:
-    name: thp-disable
+    name: disable-transparent-huge-pages.service
     state: started
     enabled: yes
-  when: _huge_page_status.stdout == ""
+  when: _huge_page_status.stdout == "[always] madvise never"
 
 - name: Ensure NUMA zone reclaim is disabled
   sysctl:

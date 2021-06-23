@@ -1,5 +1,5 @@
 ---
-# task file for linux configuration
+# task file for mongodb installation
 
 - name: Include OS-specific vars
   include_vars:

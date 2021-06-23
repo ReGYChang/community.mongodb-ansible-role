@@ -1,0 +1,43 @@
+---
+# task file for mongodb depolyment
+
+- name: Ensure dbpath exists
+  file:
+    path: /data
+    state: directory
+    owner: monogd
+    group: mongod
+
+- name: Ensure log exists
+  file:
+    path: /data/log
+    state: directory
+    owner: mongod
+    group: mongod
+
+- name: Copy config file
+  template:
+    src: "{{ mongod_config_template }}"
+    dest: /etc/mongod.conf
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+  notify:
+    - Restart mongod service
+    
+- name: Copy keyfile to host
+  copy:
+    content: |
+      {{ openssl_keyfile_content }}
+    dest: /etc/keyfile
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+    mode: 0400
+  when: authorization == "enabled"
+  notify:
+    - Restart mongod service
+
+- name: Start mongod service
+  service:
+    name: "{{ mongod_service }}"
+    state: started
+    enabled: yes

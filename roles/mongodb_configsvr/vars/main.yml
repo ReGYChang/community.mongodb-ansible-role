@@ -1,0 +1,29 @@
+---
+
+mongodb_user: "mongod"
+mongodb_group: "mongod"
+mongod_service: "mongod"
+
+# mongodb configuration
+db_path: /data
+mongod_port: 27017
+bind_ip: 0.0.0.0
+
+authorization: "enabled"
+mongodb_admin_user: admin
+mongodb_admin_pwd: admin
+
+# mongod | configsvr | shardsvr
+cluster_role: mongod
+
+# stanalone | replicaset | sharding
+deployment_type: stanalone
+
+# replicaset
+repl_set_name: rs0
+
+# sharding
+sh
+
+mongod_config_template: "mongod.conf.j2"
+skip_restart: true

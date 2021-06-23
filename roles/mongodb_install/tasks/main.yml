@@ -35,8 +35,8 @@
 
 - name: Create mongodb symlink
   file:
-    src: /opt/OmniMongoDB/mongodb
-    dest: /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}
+    src: /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}
+    dest: /opt/OmniMongoDB/mongodb
     state: link
 
 - name: Setup mongod service

@@ -11,13 +11,6 @@
       files:
         - main.yml
 
-- name: Create mongodb files
-  file:
-    path: /opt/OmniMongoDB/mongodb
-    state: directory
-    owner: root
-    group: root
-
 - name: Create mongod Group
   group:
     name: mongod
@@ -44,6 +37,7 @@
   file:
     src: /opt/OmniMongoDB/mongodb
     dest: /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}
+    state: link
 
 - name: Setup mongod service
   copy:

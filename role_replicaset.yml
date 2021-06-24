@@ -12,10 +12,10 @@
         login_host: localhost
         replica_set: "rs0"
         members:
-          - "mongodb1"
-          - "mongodb2"
-          - "mongodb3"
-      when: ansible_hostname == "mongodb1"
+          - "ansible-1"
+          - "ansible-2"
+          - "ansible-3"
+      when: ansible_hostname == "ansible-1"
       register: repl
 
     - name: Ensure replicaset has reached a converged state
@@ -31,4 +31,4 @@
       vars:
         mongod_host: "127.0.0.1"
         mongodb_admin_pwd: "admin"
-      when: ansible_hostname == "mongodb1"
+      when: ansible_hostname == "ansible-1"

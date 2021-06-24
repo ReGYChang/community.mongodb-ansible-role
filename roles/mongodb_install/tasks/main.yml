@@ -11,6 +11,15 @@
       files:
         - main.yml
 
+- name: Install required packages
+  yum:
+    name: {{ item }}
+    loop:
+      - openssl
+      - rpm-libs
+      - wget
+      - vim
+
 - name: Create mongod Group
   group:
     name: mongod
@@ -38,6 +47,10 @@
     src: /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}
     dest: /opt/OmniMongoDB/mongodb
     state: link
+
+- name: Copy mongodb bin to /usr/bin
+  shell: "cp /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/* /usr/bin"
+  
 
 - name: Setup mongod service
   copy:

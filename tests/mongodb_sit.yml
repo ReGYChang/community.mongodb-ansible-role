@@ -2,6 +2,6 @@
 - hosts: mongodbsvrs
   remote_user: root
   roles:
-    - { role: "mongodb-ansible-roles.mongodb_linux" }
-    - { role: "mongodb-ansible-roles.mongodb_install" }
-    - { role: "mongodb-ansible-roles.mongodb_mongod" }
+    - { role: " mongodb_linux" }
+    - { role: " mongodb_install" }
+    - { role: " mongodb_mongod" }

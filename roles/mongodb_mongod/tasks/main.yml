@@ -8,7 +8,7 @@
     owner: monogd
     group: mongod
 
-- name: Ensure log exists
+- name: Ensure log dir exists
   file:
     path: /data/log
     state: directory

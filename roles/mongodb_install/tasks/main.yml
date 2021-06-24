@@ -20,7 +20,6 @@
       - vim
     state: present
 
-
 - name: Create mongod Group
   group:
     name: mongod
@@ -52,7 +51,6 @@
 - name: Copy mongodb bin to /usr/bin
   shell: "cp /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/* /usr/bin"
   
-
 - name: Setup mongod service
   copy:
     src: mongod.service

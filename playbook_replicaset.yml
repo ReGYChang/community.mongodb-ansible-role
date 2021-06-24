@@ -1,7 +1,8 @@
 - hosts: mongodbsvrs
   roles:
-      - { role: "community.mongodb.mongodb_repository" }
-      - { role: "community.mongodb.mongodb_mongod" }
+      - { role: "mongodb_linux" }
+      - { role: "mongodb_install" }
+      - { role: "mongodb_mongod" }
 
   tasks:
 

@@ -5,7 +5,7 @@
   file:
     path: /data
     state: directory
-    owner: monogd
+    owner: mongod
     group: mongod
 
 - name: Ensure log dir exists

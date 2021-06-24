@@ -38,4 +38,4 @@ openssl_keyfile_content: |
 replicaset: true
 sharding: false
 
-skip_restart: false
+skip_restart: true

@@ -1,0 +1,5 @@
+---
+- hosts: mongodbsvrs
+  remote_user: root
+  roles:
+    - mongodb_mongod

@@ -13,12 +13,13 @@
 
 - name: Install required packages
   yum:
-    name: {{ item }}
-    loop:
+    name:
       - openssl
       - rpm-libs
       - wget
       - vim
+    state: present
+
 
 - name: Create mongod Group
   group:

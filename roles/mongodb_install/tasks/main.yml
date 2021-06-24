@@ -18,6 +18,7 @@
       - rpm-libs
       - wget
       - vim
+      - pymongo
     state: present
 
 - name: Create mongod Group

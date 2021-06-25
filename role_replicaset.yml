@@ -3,6 +3,8 @@
       - { role: "mongodb_linux" }
       - { role: "mongodb_install" }
       - { role: "mongodb_mongod" }
+  vars:
+    - mongodb_master: mongodb-ansible-1
 
   tasks:
 
@@ -15,7 +17,7 @@
           - "ansible-1"
           - "ansible-2"
           - "ansible-3"
-      when: ansible_hostname == "mongodb-ansible-1"
+      when: ansible_hostname == mongodb_master
       register: repl
 
     - name: Import mongodb_auth role
@@ -24,4 +26,4 @@
       vars:
         mongod_host: "127.0.0.1"
         mongodb_admin_pwd: "admin"
-      when: ansible_hostname == "mongodb-ansible-1"
+      when: ansible_hostname == mongodb_master

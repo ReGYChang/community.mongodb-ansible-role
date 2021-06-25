@@ -26,7 +26,8 @@
     msg: "[WARNING] Using default admin credentials for mongodb admin account! Please change them!"
 
 - name: Add mongo admin user with localhost exception
-  script: initAdminUser.sh {{ mongod_port }} {{ mongodb_admin_user }} {{ mongodb_admin_pwd }}
+  shell:  mongo --port {{ mongod_port }} initAdminUser.js {{ mongodb_admin_user }} {{ mongodb_admin_pwd }}
+  when: ansible_hostname == mongodb_master
 
 - name: Enable security section in mongod.conf
   lineinfile:

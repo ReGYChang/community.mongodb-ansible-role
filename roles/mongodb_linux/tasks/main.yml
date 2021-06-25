@@ -11,6 +11,10 @@
       files:
         - "{{ ansible_facts.distribution }}-{{ ansible_distribution_major_version }}.yml"
 
+- name: Ensure cluster connection
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ mongodb_hosts }}"
 
 - name: Disable selinux
   lineinfile:

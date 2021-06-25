@@ -1,4 +1,9 @@
 ---
+# /etc/hosts
+mongodb_hosts: |
+  10.140.0.31 ansible-1 # Add by Ansible
+  10.140.0.67 ansible-2 # Add by Ansible
+  10.140.0.68 ansible-3 # Add by Ansible
 
 # Packages for RedHat-7 distros
 ntp_package: ntp

@@ -21,6 +21,13 @@
       - pymongo
     state: present
 
+- name: Create mongod dir
+  file:
+    path: /opt/OmniMongoDB
+    state: directory
+    owner: root
+    group: root
+
 - name: Create mongod Group
   group:
     name: mongod
@@ -50,7 +57,24 @@
     state: link
 
 - name: Copy mongodb bin to /usr/bin
-  shell: "cp /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/* /usr/bin"
+  copy:
+    src: "{{ item }}"
+    dest: /usr/bin/
+    owner: root
+    group: root
+    remote_src: yes
+  with_items:
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/bsondump
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/install_compass
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongo
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongod
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongodump
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongoexport
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongofiles
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongoimport
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongorestore
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongos
+    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongotop
   
 - name: Setup mongod service
   copy:

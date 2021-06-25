@@ -1,4 +1,6 @@
 ---
+- pause:
+    seconds: 30
 
 - name: Include OS-specific vars
   include_vars:

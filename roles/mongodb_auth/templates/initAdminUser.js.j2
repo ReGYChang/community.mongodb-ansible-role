@@ -1,8 +1,8 @@
 db = db.getSiblingDB('admin');
 db.createUser(
  {
-   user: {{ mongodb_admin_user }},
-   pwd: {{ mongodb_admin_pwd }},
+   user: "{{ mongodb_admin_user }}",
+   pwd: "{{ mongodb_admin_pwd }}",
    roles: [
     { role: "root", db: "admin" }
    ]

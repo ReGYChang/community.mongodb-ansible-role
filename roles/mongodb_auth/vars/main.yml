@@ -1,6 +1,6 @@
 ---
 # defaults file for mongodb_auth
-mongod_port: 27017
+mongodb_port: 27017
 
 authorization: "enabled"
 
@@ -26,3 +26,4 @@ mongodb_users: []
 mongodb_force_update_password: no
 
 pyyaml_package: PyYAML
+mongodb_python: "{{ ansible_python_interpreter | default( (ansible_python|default({})).get('executable', 'python') ) }}"

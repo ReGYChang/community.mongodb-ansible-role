@@ -31,7 +31,7 @@
     dest: /opt/OmniMongoDB/ansible/initAdminUser.js
 
 - name: Add mongo admin user with localhost exception
-  shell:  mongo --port {{ mongod_port }} /opt/OmniMongoDB/ansible/initAdminUser.js 
+  shell:  chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} initAdminUser.js 
   when: ansible_hostname == mongodb_master
 
 - name: Enable security section in mongod.conf

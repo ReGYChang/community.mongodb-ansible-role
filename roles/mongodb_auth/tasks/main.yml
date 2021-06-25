@@ -15,6 +15,7 @@
     name:
       # pyyaml is used to validate yaml files on change
       - "{{ pyyaml_package }}"
+    state: present
   register: _pkg
   until: _pkg is succeeded
   retries: 5
@@ -38,7 +39,6 @@
 
     login_host: localhost
     login_port: "{{ mongod_port | string }}"  # silence implicit int->str conversion warning
-    create_for_localhost_exception: /root/mongodb_admin.success
   module_defaults:
     community.mongodb.mongodb_user: {}
 

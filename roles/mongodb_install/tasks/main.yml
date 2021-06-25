@@ -23,7 +23,7 @@
 
 - name: Create mongod dir
   file:
-    path: /opt/OmniMongoDB
+    path: /opt/OmniMongoDB/ansible
     state: directory
     owner: root
     group: root

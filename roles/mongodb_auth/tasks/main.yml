@@ -25,8 +25,13 @@
   debug:
     msg: "[WARNING] Using default admin credentials for mongodb admin account! Please change them!"
 
+- name: Copy the initAdminUser script
+  template:
+    src: initAdminUser.js.j2
+    dest: /opt/OmniMongoDB/ansible/initAdminUser.js
+
 - name: Add mongo admin user with localhost exception
-  shell:  mongo --port {{ mongod_port }} initAdminUser.js {{ mongodb_admin_user }} {{ mongodb_admin_pwd }}
+  shell:  mongo --port {{ mongod_port }} /opt/OmniMongoDB/ansible/initAdminUser.js 
   when: ansible_hostname == mongodb_master
 
 - name: Enable security section in mongod.conf

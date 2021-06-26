@@ -2,7 +2,13 @@
 Ansible role to install and manage [MongoDB](http://www.mongodb.org/).
 
 - Install and configure the MongoDB
-- Configure os config
+- Configure operating system
 - Configure authentication
 - Configure replica set
 - Configure sharded cluster
+
+# Variables
+## mongodb_linux
+## mongodb_install
+## mongodb_mongod
+## mongodb_auth

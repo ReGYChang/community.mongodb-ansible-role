@@ -27,7 +27,7 @@
   debug:
     msg: "[WARNING] Using default admin credentials for mongodb admin account! Please change them!"
 
-- name: Copy the initAdminUser script
+- name: Copy the init admin user script
   template:
     src: initAdminUser.js.j2
     dest: /opt/OmniMongoDB/ansible/initAdminUser.js

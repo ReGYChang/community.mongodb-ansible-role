@@ -1,4 +1,4 @@
-# Ansible role for MongoDB
+# Ansible roles for MongoDB
 Ansible roles to install and manage [MongoDB](http://www.mongodb.org/).
 
 - Configure operating system

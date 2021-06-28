@@ -28,6 +28,13 @@
     owner: root
     group: root
 
+- name: Create mongod backup dir
+  file:
+    path: /opt/OmniMongoDB/backup
+    state: directory
+    owner: root
+    group: root
+
 - name: Create mongod Group
   group:
     name: mongod

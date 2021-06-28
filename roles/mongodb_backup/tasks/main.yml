@@ -1,0 +1,42 @@
+---
+
+- name: Include Backup-specific vars
+  include_vars:
+    file: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      paths:
+        - "vars"
+      files:
+        - main.yml
+
+- name: Copy the fsyncLock script to data source host
+  template:
+    src: "{{ item }}"
+    dest: /opt/OmniMongoDB/ansible/{{ item | basename | regex_replace('\.j2$', '') }}
+  with_items:
+    - fsyncLock.js.j2
+    - fsyncUnlock.js.j2
+    - mongodump.sh.j2
+
+- name: Locks the entire mongod instance
+  shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncLock.js
+  register: fsync
+
+- debug: 
+    msg: "fsync command return is {{ fsync }}"
+
+- name: Create backup dir with current date
+  file:
+    path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}
+    state: directory
+    owner: root
+    group: root
+
+- name: Dump entire collections data from MongoDB
+  shell: chdir=/opt/OmniMongoDB/ansible mongodump.sh
+
+- name: Unlocks the entire mongod instance
+  shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncUnlock.js
+
+# - name: Fetch backup data

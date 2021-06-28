@@ -1,0 +1,7 @@
+---
+
+mongodb_admin_user: admin
+mongodb_admin_pwd: admin
+mongodb_port: 27017
+
+backup_path: /opt/OmniMongoDB/backup

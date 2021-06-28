@@ -1,0 +1,10 @@
+- hosts: mongodbsvrs
+  vars:
+    cluster_type: replica_set
+    data_source: mongodb-ansible-1
+
+  tasks:
+    - name: Full backup replica set data automatically
+      include_role:
+        name: mongodb_backup
+        when: ansible_hostname == {{ data_source }}

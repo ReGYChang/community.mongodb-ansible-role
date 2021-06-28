@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mongodump --port {{ mongodb_port }} -u {{ mongodb_admin_user }} -p {{ mongodb_admin_password }} --authenticationDatabase=admin -o {{ backup_path }}

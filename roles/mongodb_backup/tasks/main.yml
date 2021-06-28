@@ -40,4 +40,7 @@
 - name: Unlocks the entire mongod instance
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncUnlock.js
 
-# - name: Fetch backup data
+- name: Fetch backup data from remote host
+  fetch:
+    src: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz
+    dest: "{{ backup_path }}"

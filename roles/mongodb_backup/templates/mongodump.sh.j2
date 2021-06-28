@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mongodump --port {{ mongodb_port }} -u {{ mongodb_admin_user }} -p {{ mongodb_admin_pwd }} --authenticationDatabase=admin -o {{ backup_path }}_mongodb_backup
+mongodump --port {{ mongodb_port }} -u {{ mongodb_admin_user }} -p {{ mongodb_admin_pwd }} --authenticationDatabase=admin -o /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup

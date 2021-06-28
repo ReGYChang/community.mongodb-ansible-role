@@ -36,6 +36,7 @@
   archive:
     path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup
     dest: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz
+    remove: true
 
 - name: Unlocks the entire mongod instance
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncUnlock.js

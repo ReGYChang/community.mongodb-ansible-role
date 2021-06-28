@@ -32,7 +32,7 @@
 - name: Dump entire collections data from MongoDB
   shell: chdir=/opt/OmniMongoDB/ansible /bin/bash mongodump.sh
 
-- name: Compress backup archive
+- name: Archive backup data files
   archive:
     path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup
     dest: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz
@@ -40,7 +40,8 @@
 - name: Unlocks the entire mongod instance
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncUnlock.js
 
-- name: Fetch backup data from remote host
-  fetch:
-    src: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz
+- name: Synchronize backup data from remote host
+  synchronize:
+    src: "/opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz"
     dest: "{{ backup_path }}/{{ ansible_date_time.date }}_mongodb_backup.tar.gz"
+    mode: pull

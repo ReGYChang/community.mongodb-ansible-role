@@ -19,6 +19,7 @@
       - wget
       - vim
       - pymongo
+      - rsync
     state: present
 
 - name: Create mongod dir

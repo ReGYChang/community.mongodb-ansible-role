@@ -7,4 +7,4 @@
     - name: Full backup replica set data automatically
       include_role:
         name: mongodb_backup
-        when: ansible_hostname == {{ data_source }}
+      when: ansible_hostname ==  data_source

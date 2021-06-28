@@ -21,20 +21,21 @@
 
 - name: Locks the entire mongod instance
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncLock.js
-  register: fsync
-
-- debug: 
-    msg: "fsync command return is {{ fsync }}"
 
 - name: Create backup dir with current date
   file:
-    path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}
+    path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup
     state: directory
     owner: root
     group: root
 
 - name: Dump entire collections data from MongoDB
-  shell: chdir=/opt/OmniMongoDB/ansible mongodump.sh
+  shell: chdir=/opt/OmniMongoDB/ansible /bin/bash mongodump.sh
+
+- name: Compress backup archive
+  archive:
+    path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup
+    dest: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz
 
 - name: Unlocks the entire mongod instance
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncUnlock.js

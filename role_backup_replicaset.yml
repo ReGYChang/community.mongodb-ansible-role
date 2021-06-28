@@ -8,14 +8,3 @@
       include_role:
         name: mongodb_backup
       when: ansible_hostname ==  data_source
-
-- hosts: 127.0.0.1
-  vars:
-    backup_path: /test/backup
-  
-  tasks:
-    - name: Archive backup data
-      archive:
-        path: "{{ backup_path }}/*"
-        dest: "{{ backup_path }}/{{ ansible_date_time.date }}_mongodb_backup.tar.gz"
-        remove: true

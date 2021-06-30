@@ -37,6 +37,11 @@
     path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup
     dest: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup.tar.gz
 
+- name: Remove backup data files
+  file:
+    path: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_backup
+    state: absent
+
 - name: Unlocks the entire mongod instance
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} fsyncUnlock.js
 

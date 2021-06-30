@@ -1,0 +1,15 @@
+---
+
+- name: Include Restore-specific vars
+  include_vars:
+    file: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      paths:
+        - "vars"
+      files:
+        - main.yml
+
+- name: Remove secondary nodes & shut down primary node
+- name: Obtain backup MongoDB database files and replace primary dbpath
+- name: Add secondary members into replica set

@@ -1,0 +1,12 @@
+---
+
+mongodb_admin_user: admin
+mongodb_admin_pwd: admin
+mongodb_port: 27017
+
+# the backup path from ansible control host
+backup_path: /test/backup
+
+primary_host: mongodb-ansible-1
+secondary_member1: ansible-2
+secondary_member2: ansible-3

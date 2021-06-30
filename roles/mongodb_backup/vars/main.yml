@@ -4,5 +4,5 @@ mongodb_admin_user: admin
 mongodb_admin_pwd: admin
 mongodb_port: 27017
 
-# the path from ansible control host
+# the backup path from ansible control host
 backup_path: /test/backup

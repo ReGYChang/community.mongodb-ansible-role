@@ -1,20 +1,16 @@
 - hosts: mongodbsvrs
   vars:
     cluster_type: replica_set
-    primary_host: mongodb-ansible-1
+    mongodb_port: 27017
 
   tasks:
     - name: Check out the primary node
       shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} --eval 'db.hello().primary'
       register: primary
 
-    - debug:
-        msg: "{{ primary.stdout_lines }}"
-
     - name: Restore full backup replica set data automatically
       include_role:
         name: mongodb_restore
       vars:
-        secondary_node1: ansible-1:27017
-        secondary_node2: ansible-2:27017
-      when: ansible_hostname ==  primary_host
+        primary_host: "mongodb-{{ primary.stdout_lines[-1] | regex_replace(':27017') }}"
+      when: ansible_hostname == primary_node

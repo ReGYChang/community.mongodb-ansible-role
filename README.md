@@ -1,6 +1,8 @@
 # Ansible roles for MongoDB
-Ansible roles to install and manage [MongoDB](http://www.mongodb.org/).
 
+> Ansible roles to install and manage [MongoDB](http://www.mongodb.org/).
+
+Features:
 - Configure operating system
 - Install the MongoDB packages
 - Configure and start MongoDB service

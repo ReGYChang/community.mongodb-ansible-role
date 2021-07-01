@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mongorestore --port {{ mongodb_port }} -u {{ mongodb_admin_user }} -p {{ mongodb_admin_pwd }} --authenticationDatabase=admin --drop /opt/OmniMongoDB/backup/{{ target_backup_date }}_mongodb_backup

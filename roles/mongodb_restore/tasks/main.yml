@@ -10,6 +10,26 @@
       files:
         - main.yml
 
-- name: Remove secondary nodes & shut down primary node
-- name: Obtain backup MongoDB database files and replace primary dbpath
-- name: Add secondary members into replica set
+- name: Copy the scripts to data source host
+  template:
+    src: "{{ item }}"
+    dest: /opt/OmniMongoDB/ansible/{{ item | basename | regex_replace('\.j2$', '') }}
+  with_items:
+    - addSecondary.js.j2
+    - rmSecondary.js.j2
+    - mongorestore.sh.j2
+
+- name: Remove secondary nodes from replica set
+  shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} rmSecondary.js
+    
+- name: Obtain backup MongoDB database files
+  unarchive: 
+    src: "{{ backup_path }}/{{ target_backup_date }}_mongodb_backup.tar.gz"
+    dest: /opt/OmniMongoDB/backup
+    copy: yes
+
+- name: Restore data to primary with mongorestore
+  shell: chdir=/opt/OmniMongoDB/ansible /bin/bash mongorestore.sh
+
+- name: Add secondary nodes from replica set
+  shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} addSecondary.js

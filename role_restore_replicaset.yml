@@ -1,0 +1,13 @@
+- hosts: mongodbsvrs
+  vars:
+    cluster_type: replica_set
+    primary_host: mongodb-ansible-1
+
+  tasks:
+    - name: Restore full backup replica set data automatically
+      include_role:
+        name: mongodb_restore
+      vars:
+        secondary_node1: ansible-1:27017
+        secondary_node2: ansible-2:27017
+      when: ansible_hostname ==  primary_host

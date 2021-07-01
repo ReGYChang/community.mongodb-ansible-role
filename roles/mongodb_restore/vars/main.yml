@@ -6,7 +6,9 @@ mongodb_port: 27017
 
 # the backup path from ansible control host
 backup_path: /test/backup
+# yyyy-mm-dd
+target_backup_date: 2021-07-01
 
 primary_host: mongodb-ansible-1
-secondary_member1: ansible-2
-secondary_member2: ansible-3
+secondary_node1: ansible-2:27017
+secondary_node2: ansible-3:27017

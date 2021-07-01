@@ -10,7 +10,7 @@
       files:
         - main.yml
 
-- name: Copy the fsyncLock script to data source host
+- name: Copy the scripts to data source host
   template:
     src: "{{ item }}"
     dest: /opt/OmniMongoDB/ansible/{{ item | basename | regex_replace('\.j2$', '') }}

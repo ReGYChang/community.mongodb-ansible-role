@@ -1,0 +1,4 @@
+db = db.getSiblingDB('admin');
+db.auth("{{ mongodb_admin_user }}","{{ mongodb_admin_pwd }}");
+rs.add("{{ secondary_node1 }}");
+rs.add("{{ secondary_node2 }}");

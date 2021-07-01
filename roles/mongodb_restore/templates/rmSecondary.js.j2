@@ -1,0 +1,4 @@
+db = db.getSiblingDB('admin');
+db.auth("{{ mongodb_admin_user }}","{{ mongodb_admin_pwd }}");
+rs.remove("{{ secondary_node1 }}");
+rs.remove("{{ secondary_node2 }}");

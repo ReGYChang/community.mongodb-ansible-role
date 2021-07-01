@@ -4,15 +4,13 @@
     primary_host: mongodb-ansible-1
 
   tasks:
-    - name: Check out primary node
-      include_role:
-        name: mongodb_mongod
-        tasks_from: checkout_primary.yml
-        register: primary
-    
+    - name: Check out the primary node
+      shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} --eval 'db.hello().primary'
+      register: primary
+
     - debug:
-        msg: "{{ primary }}"
-        
+        msg: "{{ primary.stdout_lines }}"
+
     - name: Restore full backup replica set data automatically
       include_role:
         name: mongodb_restore

@@ -27,7 +27,7 @@ processManagement:
 
 # network interfaces
 net:
-  port: {{ mongod_port }}
+  port: {{ mongodb_port }}
   bindIp: {{ bind_ip }}
 
 {% if authorization == "enabled" %}

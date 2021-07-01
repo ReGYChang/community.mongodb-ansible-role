@@ -4,6 +4,15 @@
     primary_host: mongodb-ansible-1
 
   tasks:
+    - name: Check out primary node
+      include_role:
+        name: mongodb_mongod
+        tasks_from: checkout_primary.yml
+        register: primary
+    
+    - debug:
+        msg: "{{ primary }}"
+        
     - name: Restore full backup replica set data automatically
       include_role:
         name: mongodb_restore

@@ -95,7 +95,7 @@ mongod_config_template: "mongod.conf.j2"
 
 # mongodb
 db_path: /data
-mongod_port: 27017
+mongodb_port: 27017
 bind_ip: 0.0.0.0
 
 # security

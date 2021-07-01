@@ -1,0 +1,9 @@
+---
+
+- name: Check out primary node
+  template:
+    src: hello.js.j2
+    dest: /opt/OmniMongoDB/ansible/{{ item | basename | regex_replace('\.j2$', '') }}
+
+- name: Run db.hello() command in mongo shell
+  shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} db_hello.js

@@ -13,4 +13,4 @@
         name: mongodb_restore
       vars:
         primary_host: "mongodb-{{ primary.stdout_lines[-1] | regex_replace(':27017') }}"
-      when: ansible_hostname == primary_node
+      when: ansible_hostname == primary_host

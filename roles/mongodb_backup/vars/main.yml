@@ -6,3 +6,5 @@ mongodb_port: 27017
 
 # the backup path from ansible control host
 backup_path: /test/backup
+
+db_path: /data

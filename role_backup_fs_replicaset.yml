@@ -11,7 +11,7 @@
     - name: Full backup replica set data automatically
       include_role:
         name: mongodb_backup
-      tasks_from: backup_fs.yml
+        tasks_from: backup_fs.yml
       vars:
         primary_host: "mongodb-{{ primary.stdout_lines[-1] | regex_replace(':27017') }}"
       when: ansible_hostname !=  primary_host

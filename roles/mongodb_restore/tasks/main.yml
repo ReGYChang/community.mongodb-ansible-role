@@ -18,6 +18,7 @@
     - addSecondary.js.j2
     - rmSecondary.js.j2
     - mongorestore.sh.j2
+    - mongodump_oplog.sh.j2
 
 - name: Remove secondary nodes from replica set
   shell: chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} rmSecondary.js
@@ -27,6 +28,14 @@
     src: "{{ backup_path }}/{{ target_backup_date }}_mongodb_backup.tar.gz"
     dest: /opt/OmniMongoDB/backup
     copy: yes
+
+- name: Dump oplog from primary node
+  shell: chdir=/opt/OmniMongoDB/ansible /bin/bash mongodump_oplog.sh
+
+- name: Copy oplog to backup directory
+  copy:
+    src: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_oplog/oplog.rs.bson
+    dest: /opt/OmniMongoDB/backup/{{ target_backup_date }}_mongodb_backup/oplog.bson
 
 - name: Restore data to primary with mongorestore
   shell: chdir=/opt/OmniMongoDB/ansible /bin/bash mongorestore.sh

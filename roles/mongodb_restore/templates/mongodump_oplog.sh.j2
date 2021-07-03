@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mongodump --port {{ mongodb_port }} \
+-u {{ mongodb_admin_user }} \
+-p {{ mongodb_admin_pwd }} \
+--authenticationDatabase=admin \
+-d local -c oplog.rs \
+-o /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_oplog

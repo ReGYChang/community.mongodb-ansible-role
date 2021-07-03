@@ -36,6 +36,7 @@
   copy:
     src: /opt/OmniMongoDB/backup/{{ ansible_date_time.date }}_mongodb_oplog/oplog.rs.bson
     dest: /opt/OmniMongoDB/backup/{{ target_backup_date }}_mongodb_backup/oplog.bson
+    remote_src: true
 
 - name: Restore data to primary with mongorestore
   shell: chdir=/opt/OmniMongoDB/ansible /bin/bash mongorestore.sh

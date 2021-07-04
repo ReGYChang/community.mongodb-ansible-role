@@ -1,4 +1,5 @@
 ---
+# Waiting for replica set initial
 - pause:
     seconds: 30
 
@@ -64,13 +65,13 @@
       '
   register: _enable_mongo_auth
 
-# # This is a task instead of a handler so we can add users right away
-# - name: Restart mongodb to enable auth before adding additional users
-#   # This allows us to safely assume auth is already enabled when adding more users
-#   when: _enable_mongo_auth is changed
-#   service:
-#     name: mongod
-#     state: restarted
+# This is a task instead of a handler so we can add users right away
+- name: Restart mongodb to enable auth before adding additional users
+  # This allows us to safely assume auth is already enabled when adding more users
+  when: _enable_mongo_auth is changed
+  service:
+    name: mongod
+    state: restarted
 
 # - name: Add additional mongo users
 #   include_tasks: mongodb_auth_user.yml

@@ -51,7 +51,7 @@ Example playbook for setup a replica set cluster:
       include_role:
         name: mongodb_auth
       vars:
-        mongod_host: "127.0.0.1"
+        mongodb_host: "127.0.0.1"
         mongodb_admin_pwd: "admin"
       when: ansible_hostname == mongodb_master
 ```

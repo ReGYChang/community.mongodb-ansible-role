@@ -1,0 +1,31 @@
+# linux config
+# /etc/hosts
+mongodb_hosts: |
+  10.140.0.31 ansible-1 # Add by Ansible
+  10.140.0.67 ansible-2 # Add by Ansible
+  10.140.0.68 ansible-3 # Add by Ansible
+
+# install config
+mongodb_version: 4.2.14
+
+# mongod config
+mongodb_master: mongodb-ansible-1
+mongodb_port: 27017
+
+# rs config
+replica_set_id: "rs0"
+replica_set_members:
+  - "ansible-1:{{ mongodb_port }}"
+  - "ansible-2:{{ mongodb_port }}"
+  - "ansible-3:{{ mongodb_port }}"
+
+# auth config
+authorization: "enabled"
+# when adding auth, the login credentials to use
+mongodb_admin_user: admin
+# For production use - please change the admin password!
+mongodb_admin_pwd: "{{ mongodb_default_admin_pwd }}"
+# The default is separate so other roles can provide a default without overriding a user provided password.
+mongodb_default_admin_pwd: admin
+# allow for alternate admin roles (eg userAdminAnyDatabase)
+mongodb_admin_roles: "root"

@@ -1,6 +1,6 @@
 - hosts: mongodbsvrs
-  vars:
-    - mongodb_master: mongodb-ansible-1
+  vars_files:
+    - vars/default.yml
 
   tasks:
     - name: Confiure Operating System
@@ -19,18 +19,15 @@
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
-        replica_set: "rs0"
-        members:
-          - "ansible-1"
-          - "ansible-2"
-          - "ansible-3"
-      when: ansible_hostname == mongodb_master
+        replica_set: "{{ replica_set_id }}"
+        members: "{{ replica_set_members }}"
+      when: ansible_hostname == {{ mongodb_master }}
       register: repl
+
+    - debug:
+        msg: "{{ repl }}"
 
     - name: Initialise MongoDB Replicaset Authentication
       include_role:
         name: mongodb_auth
-      vars:
-        mongod_host: "127.0.0.1"
-        mongodb_admin_pwd: "admin"
-      when: ansible_hostname == mongodb_master
+      when: ansible_hostname == {{ mongodb_master }}

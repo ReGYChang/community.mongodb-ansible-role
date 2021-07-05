@@ -1,7 +1,7 @@
 ---
 
-mongodb_admin_user: admin
-mongodb_admin_pwd: admin
+mongodb_admin_user: sysadmin
+mongodb_admin_pwd: sysadmin
 mongodb_port: 27017
 
 # the backup path from ansible control host

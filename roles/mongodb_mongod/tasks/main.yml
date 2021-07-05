@@ -1,19 +1,19 @@
 ---
 # task file for mongodb depolyment
 
-- name: Ensure dbpath exists
+- name: Ensure db_path dir exists
   file:
-    path: /data
+    path: "{{ db_path }}"
     state: directory
-    owner: mongod
-    group: mongod
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
 
-- name: Ensure log dir exists
+- name: Ensure log_path dir exists
   file:
-    path: /data/log
+    path: "{{ log_path }}"
     state: directory
-    owner: mongod
-    group: mongod
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
 
 - name: Copy config file
   template:

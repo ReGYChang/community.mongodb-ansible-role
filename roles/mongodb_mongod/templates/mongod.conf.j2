@@ -7,7 +7,7 @@
 systemLog:
   destination: file
   logAppend: true
-  path: /data/log/mongod.log
+  path: {{ log_path }}
 
 # Where and how to store data.
 storage:

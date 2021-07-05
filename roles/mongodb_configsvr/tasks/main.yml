@@ -1,16 +1,36 @@
 ---
-# task file for mongodb depolyment
+# task file for mongodb_config
 
-- name: Create dbpath
+- name: Ensure db_path dir exists
   file:
-    path: /data
+    path: "{{ db_path }}"
     state: directory
-    owner: monogd
-    group: mongod
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
 
-- name: Create log directory
-  file:
-    path: /data/log
-    state: directory
-    owner: mongod
-    group: mongod
+- name: Copy config file
+  template:
+    src: "{{ configsvr_config_template }}"
+    dest: /etc/mongod.conf
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+  notify:
+    - Restart mongod service
+
+- name: Copy keyfile to host
+  copy:
+    content: |
+      {{ openssl_keyfile_content }}
+    dest: /etc/keyfile
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+    mode: 0400
+  when: authorization == "enabled"
+  notify:
+    - Restart mongod service
+
+- name: Start mongod service
+  service:
+    name: "{{ mongod_service }}"
+    state: started
+    enabled: yes

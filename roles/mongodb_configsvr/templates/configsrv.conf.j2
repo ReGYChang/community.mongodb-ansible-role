@@ -7,7 +7,7 @@
 systemLog:
   destination: file
   logAppend: true
-  path: /var/log/mongodb/mongod.log
+  path: {{ log_path }}
 
 # Where and how to store data.
 storage:
@@ -26,7 +26,7 @@ processManagement:
 
 # network interfaces
 net:
-  port: {{ config_port }}
+  port: {{ configsvr_port }}
   bindIp: {{ bind_ip }}
 
 {% if authorization == "enabled" %}
@@ -39,7 +39,7 @@ security:
 
 {% if replicaset %}
 replication:
-  replSetName: {{ config_repl_set_name }}
+  replSetName: {{ configsvr_repl_set_name }}
 {% endif %}
 
 sharding:

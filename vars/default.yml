@@ -4,6 +4,9 @@ mongodb_hosts: |
   10.140.0.31 ansible-1 # Add by Ansible
   10.140.0.67 ansible-2 # Add by Ansible
   10.140.0.68 ansible-3 # Add by Ansible
+  10.140.0.70 ansible-4 # Add by Ansible
+  10.140.0.71 ansible-5 # Add by Ansible
+  10.140.0.72 ansible-6 # Add by Ansible
 
 # install config
 mongodb_version: 4.2.14

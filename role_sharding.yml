@@ -22,9 +22,9 @@
         login_host: localhost
         replica_set: "{{ configsvr_repl_set_name }}"
         members:
-          - "ansible-1:27019"
-          - "ansible-2:27019"
-          - "ansible-3:27019"
+          - "ansible-4:27019"
+          - "ansible-5:27019"
+          - "ansible-6:27019"
       when: ansible_hostname == configsvr_master
       register: repl
 

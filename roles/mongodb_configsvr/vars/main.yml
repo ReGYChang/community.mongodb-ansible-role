@@ -8,7 +8,7 @@ configsvr_config_template: "configsvr.conf.j2"
 
 # mongodb
 db_path: /data
-log_path: /data/log
+log_path: /data/log/mongod.log
 configsvr_port: 27019
 bind_ip: 0.0.0.0
 

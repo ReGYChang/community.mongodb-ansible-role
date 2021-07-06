@@ -11,7 +11,7 @@
 - name: Copy config file
   template:
     src: "{{ configsvr_config_template }}"
-    dest: /etc/mongod.conf
+    dest: /etc/mongod_cfg.conf
     owner: "{{ mongodb_user }}"
     group: "{{ mongodb_group }}"
   notify:

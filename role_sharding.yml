@@ -14,7 +14,7 @@
 
     - name: Setup of Configsvr Service
       include_role:
-        name: mongodb_mongod
+        name: mongodb_configsvr
 
     - name: Initialise Configsvr Replicaset
       mongodb_replicaset:
@@ -31,7 +31,7 @@
     - name: Initialise Configsvr Replicaset Authentication
       include_role:
         name: mongodb_auth
-      when: ansible_hostname == mongodb_master
+      when: ansible_hostname == configsvr_master
 
 - hosts: mongodbsvrs
   vars:

@@ -4,7 +4,7 @@
       include_role:
         name: mongodb_mongos
 
-- host: configsvrs
+- hosts: configsvrs
   tasks:
     - name: Confiure Operating System
       include_role:

@@ -1,0 +1,23 @@
+- hosts: configsvrs
+  vars:
+    - configsvr_master: mongodb-ansible-4
+    - configsvr_repl_set_name: cfg
+
+  tasks:
+    - name: Initialise Configsvr Replicaset
+      mongodb_replicaset:
+        login_database: "admin"
+        login_host: localhost
+        login_port: 27019
+        replica_set: "{{ configsvr_repl_set_name }}"
+        members:
+          - "ansible-4:27019"
+          - "ansible-5:27019"
+          - "ansible-6:27019"
+      when: ansible_hostname == configsvr_master
+      register: repl
+
+    # - name: Initialise Configsvr Replicaset Authentication
+    #   include_role:
+    #     name: mongodb_auth
+    #   when: ansible_hostname == configsvr_master

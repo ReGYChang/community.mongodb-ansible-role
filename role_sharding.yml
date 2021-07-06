@@ -1,7 +1,9 @@
 - hosts: configsvrs
   vars:
-    - configsvr_master: mongodb-ansible-1
+    - configsvr_master: mongodb-ansible-4
     - configsvr_repl_set_name: cfg
+  vars_files:
+  - vars/default.yml
 
   tasks:
     - name: Confiure Operating System
@@ -20,6 +22,7 @@
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
+        login_port: 27019
         replica_set: "{{ configsvr_repl_set_name }}"
         members:
           - "ansible-4:27019"

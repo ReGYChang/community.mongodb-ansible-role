@@ -8,7 +8,7 @@ mongos_service: "mongos"
 pid_file: /run/mongodb/mongos.pid
 bind_ip: 0.0.0.0
 # mongos_port in vars to facilitate molecule tests
-config_repl_set_name: cfg
+configsvr_repl_set_name: cfg
 config_servers: "config1:27019, config2:27019, config3:27019"
 openssl_keyfile_content: |
   Z2CeA9BMcoY5AUWoegjv/XWL2MA1SQcL4HvmRjYaTjSp/xosJy+LL2X3OQb1xVWC

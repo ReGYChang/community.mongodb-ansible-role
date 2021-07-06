@@ -19,9 +19,9 @@
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
-        replica_set: "{{ replica_set_id }}"
+        replica_set: "{{ replica_set_name }}"
         members: "{{ replica_set_members }}"
-      when: ansible_hostname == {{ mongodb_master }}
+      when: ansible_hostname == mongodb_master
       register: repl
 
     - debug:
@@ -30,4 +30,4 @@
     - name: Initialise MongoDB Replicaset Authentication
       include_role:
         name: mongodb_auth
-      when: ansible_hostname == {{ mongodb_master }}
+      when: ansible_hostname == mongodb_master

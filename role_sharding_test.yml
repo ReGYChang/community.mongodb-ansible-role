@@ -17,7 +17,9 @@
       when: ansible_hostname == configsvr_master
       register: repl
 
-    # - name: Initialise Configsvr Replicaset Authentication
-    #   include_role:
-    #     name: mongodb_auth
-    #   when: ansible_hostname == configsvr_master
+    - name: Initialise Configsvr Replicaset Authentication
+      include_role:
+        name: mongodb_auth
+      vars:
+        - mongodb_port: 27019
+      when: ansible_hostname == configsvr_master

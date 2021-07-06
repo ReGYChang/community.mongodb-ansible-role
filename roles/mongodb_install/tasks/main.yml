@@ -71,6 +71,7 @@
     owner: root
     group: root
     remote_src: yes
+    mode: 761
   with_items:
     - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/bsondump
     - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/install_compass

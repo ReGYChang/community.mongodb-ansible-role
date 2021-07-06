@@ -8,6 +8,13 @@
     owner: "{{ mongodb_user }}"
     group: "{{ mongodb_group }}"
 
+- name: Ensure log_path dir exists
+  file:
+    path: "{{ log_path }}"
+    state: directory
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+
 - name: Copy config file
   template:
     src: "{{ configsvr_config_template }}"

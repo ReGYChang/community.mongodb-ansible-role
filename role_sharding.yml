@@ -1,0 +1,69 @@
+- hosts: monogs
+  tasks:
+    - name: Deploy mongos instance
+      include_role:
+        name: mongodb_mongos
+
+- host: configsvrs
+  tasks:
+    - name: Confiure Operating System
+      include_role:
+        name: mongodb_linux
+
+    - name: Install MongoDB Packages
+      include_role:
+        name: mongodb_install
+
+    - name: Setup of Configsvr Service
+      include_role:
+        name: mongodb_mongod
+
+    - name: Initialise Configsvr Replicaset
+      mongodb_replicaset:
+        login_database: "admin"
+        login_host: localhost
+        replica_set: "{{ replica_set_id }}"
+        members: "{{ replica_set_members }}"
+      when: ansible_hostname == {{ mongodb_master }}
+      register: repl
+
+    - name: Initialise Configsvr Replicaset Authentication
+      include_role:
+        name: mongodb_auth
+      when: ansible_hostname == {{ mongodb_master }}
+
+- hosts: mongodbsvrs
+  vars:
+    - master_shard_1: mongodb-ansible-1
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Confiure Operating System
+      include_role:
+        name: mongodb_linux
+
+    - name: Install MongoDB Packages
+      include_role:
+        name: mongodb_install
+
+    - name: Setup of MongoDB Service
+      include_role:
+        name: mongodb_mongod
+
+    - name: Initialise MongoDB Replicaset
+      mongodb_replicaset:
+        login_database: "admin"
+        login_host: localhost
+        replica_set: "{{ replica_set_id }}"
+        members: "{{ replica_set_members }}"
+      when: ansible_hostname == {{ mongodb_master }}
+      register: repl
+
+    - debug:
+        msg: "{{ repl }}"
+
+    - name: Initialise MongoDB Replicaset Authentication
+      include_role:
+        name: mongodb_auth
+      when: ansible_hostname == {{ mongodb_master }}

@@ -14,8 +14,10 @@
 - name: Ensure hosts connection in /etc/hosts
   lineinfile:
     dest: /etc/hosts
-    regexp: "^# Add by Ansible"
-    line: "{{ mongodb_hosts }}"
+    regexp: '^{{ item }}'
+    line: "{{ item }}"
+  with_items: "{{ mongodb_hosts }}"
+
 
 - name: Disable selinux
   lineinfile:

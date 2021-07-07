@@ -2,4 +2,4 @@
 - hosts: mongodbsvrs
   remote_user: root
   roles:
-    - mongodb_install
+    - roles/mongodb_install

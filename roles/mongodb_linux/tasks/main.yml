@@ -11,15 +11,10 @@
       files:
         - "{{ ansible_facts.distribution }}-{{ ansible_distribution_major_version }}.yml"
 
-- name: Clean up Ansible Config in /etc/hosts
+- name: Ensure hosts connection in /etc/hosts
   lineinfile:
     dest: /etc/hosts
-    state: absent
     regexp: "^# Add by Ansible"
-
-- name: Ensure cluster connection
-  lineinfile:
-    dest: /etc/hosts
     line: "{{ mongodb_hosts }}"
 
 - name: Disable selinux

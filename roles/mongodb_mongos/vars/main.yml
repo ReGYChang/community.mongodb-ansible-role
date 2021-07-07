@@ -9,7 +9,7 @@ pid_file: /run/mongodb/mongos.pid
 bind_ip: 0.0.0.0
 # mongos_port in vars to facilitate molecule tests
 configsvr_repl_set_name: cfg
-config_servers: "ansible-4:27019, ansible-5:27019, ansible-6:27019"
+config_servers: "ansible-4:27019,ansible-5:27019,ansible-6:27019"
 openssl_keyfile_content: |
   Z2CeA9BMcoY5AUWoegjv/XWL2MA1SQcL4HvmRjYaTjSp/xosJy+LL2X3OQb1xVWC
   rO2e6Tu6A3R4muunitI6Vr0IKeU5UbTpR0N4hSU6HDrV9z2PIEWlkQqKh01ZRLEY
@@ -29,3 +29,7 @@ openssl_keyfile_content: |
   mJfrCUVuP1nBEklk23lYkNi/ohe+aodNjdN+2DHp42sGZHYP
 mongos_config_template: "mongos.conf.j2"
 skip_restart: true
+
+shard_info:
+  - repl_set_name: rs0
+    host: "ansible-1:27017"

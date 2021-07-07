@@ -1,0 +1,5 @@
+db = db.getSiblingDB('admin');
+db.auth("{{ mongodb_admin_user }}","{{ mongodb_admin_pwd }}");
+{% for repl_set_name, host in shard_info %}
+sh.addShard("{{ repl_set_name }}/{{ host }}")
+{% endfor %}

@@ -52,3 +52,11 @@
     name: "{{ mongos_service }}"
     state: started
     enabled: yes
+
+- name: Add replica set into shard cluster
+  mongodb_shard:
+    login_user: "{{ mongodb_admin_user }}"
+    login_password: "{{ mongodb_admin_password }}"
+    shard: "{{ item.repl_set_name }}/{{ item.host }}"
+    state: present
+  with_items: "{{ shard_info }}"

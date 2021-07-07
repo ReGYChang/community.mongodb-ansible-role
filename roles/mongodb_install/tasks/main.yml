@@ -58,33 +58,30 @@
     dest: /opt/OmniMongoDB
     copy: yes
 
-- name: Create mongodb symlink
+- name: Create mongodb package symlink
   file:
     src: /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}
     dest: /opt/OmniMongoDB/mongodb
     state: link
 
-- name: Copy mongodb bin to /usr/bin
-  copy:
-    src: "{{ item }}"
-    dest: /usr/bin/
-    owner: root
-    group: root
-    remote_src: yes
-    mode: 0755
+- name: Create mongodb binary symlink
+  file:
+    src: /opt/OmniMongoDB/mongodb/bin/{{ item }}
+    dest: /usr/bin/{{ item }}
+    state: link
   with_items:
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/bsondump
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/install_compass
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongo
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongod
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongodump
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongoexport
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongofiles
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongoimport
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongorestore
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongos
-    - /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}/bin/mongotop
-  
+    - bsondump
+    - install_compass
+    - mongo
+    - mongod
+    - mongodump
+    - mongoexport
+    - mongofiles
+    - mongoimport
+    - mongorestore
+    - mongos
+    - mongotop
+
 - name: Setup mongod service
   copy:
     src: mongod.service

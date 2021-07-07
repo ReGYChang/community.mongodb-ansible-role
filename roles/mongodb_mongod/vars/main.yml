@@ -8,7 +8,7 @@ mongod_config_template: "mongod.conf.j2"
 
 # mongodb
 db_path: /data
-log_path: /data/log/
+log_path: /data/log
 mongodb_port: 27017
 bind_ip: 0.0.0.0
 

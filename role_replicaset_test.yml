@@ -24,9 +24,6 @@
       when: ansible_hostname == mongodb_master
       register: repl
 
-    - debug:
-        msg: "{{ repl }}"
-
     - name: Initialise MongoDB Replicaset Authentication
       include_role:
         name: mongodb_auth

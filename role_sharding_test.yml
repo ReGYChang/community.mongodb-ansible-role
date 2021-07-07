@@ -1,4 +1,4 @@
-- hosts: configsvrs
+- hosts: mongos
   vars_files:
     - vars/default.yml
 
@@ -14,8 +14,3 @@
     - name: Setup of Mongos Service
       include_role:
         name: mongodb_mongos
-
-    - name: Initialise MongoDB Replicaset Authentication
-      include_role:
-        name: mongodb_auth
-      when: ansible_hostname == mongodb_master

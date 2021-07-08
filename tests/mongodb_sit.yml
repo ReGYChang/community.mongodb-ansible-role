@@ -1,7 +1,0 @@
----
-- hosts: mongodbsvrs
-  remote_user: root
-  roles:
-    - { role: "mongodb_linux" }
-    - { role: "mongodb_install" }
-    - { role: "mongodb_mongod" }

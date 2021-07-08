@@ -57,6 +57,44 @@ Example playbook for setup a replica set cluster:
 ```
 
 # Variables
+## Required
+### linux config
+- mongodb_hosts:
+
+### install config
+- mongodb_version:
+
+### mongod config
+- mongodb_master:
+- db_path:
+- log_path:
+- mongodb_port:
+- bind_ip:
+
+### cluster config
+- repl_set_name:
+- openssl_keyfile_content:
+- replicaset:
+- sharding:
+
+### rs config
+- replica_set_name:
+- replica_set_members:
+
+### auth config
+- authorization:
+- mongodb_admin_user: when adding auth, the login credentials to use
+- mongodb_admin_pwd: For production use - please change the admin password!
+- mongodb_admin_roles: allow for alternate admin roles (eg userAdminAnyDatabase)
+
+## Optional
+### linux config
+### install config
+### mongod config
+### cluster config
+### rs config
+### auth config
+
 mongodb_linux
 ```yaml
 # /etc/hosts

@@ -13,13 +13,7 @@
 
 - name: Install required packages
   yum:
-    name:
-      - openssl
-      - rpm-libs
-      - wget
-      - vim
-      - pymongo
-      - rsync
+    name: "{{ yum_packages }}"
     state: present
 
 - name: Create mongod dir

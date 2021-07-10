@@ -19,7 +19,7 @@
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
-        replica_set: "{{ replica_set_name }}"
+        replica_set: "{{ repl_set_name }}"
         members: "{{ replica_set_members }}"
       when: ansible_hostname == mongodb_master
       register: repl

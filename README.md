@@ -59,30 +59,29 @@ Example playbook for setup a replica set cluster:
 # Variables
 ## Required
 ### linux config
-- mongodb_hosts:
+- mongodb_hosts: FQDN of your server.
 
 ### install config
-- mongodb_version:
+- mongodb_version: The version of the mongo binary packages. Default `4.2.14`.
 
 ### mongod config
-- mongodb_master:
-- db_path:
-- log_path:
-- mongodb_port:
-- bind_ip:
+- mongodb_master: The initial primary mongod instance.
+- db_path: The directory where the mongod instance stores its data. Default `/data`.
+- log_path: The path of the log file to which mongod or mongos should send all diagnostic logging information. Default `/data/log`.
+- mongodb_port: The port used by the mongod process. Default `27017`.
+- bind_ip: The IP address mongod will bind to. Default `0.0.0.0`.
 
 ### cluster config
-- repl_set_name:
-- openssl_keyfile_content:
-- replicaset:
-- sharding:
+- openssl_keyfile_content: The path to a key file that stores the shared secret that MongoDB instances use to authenticate to each other in a sharded cluster or replica set. Should regenerate a brand new keyfile with `openssl` when initial.
+- replicaset: When enabled add a replication section to the configuration. Default `true`.
+- sharding: If this replicaset member will form part of a sharded cluster. Default `false`.
 
 ### rs config
-- replica_set_name:
-- replica_set_members:
+- repl_set_name: The name of the replica set that the mongod is part of. Default `rs0`.
+- replica_set_members: Consisting of the replicaset members.
 
 ### auth config
-- authorization:
+- authorization: Enable authorization. Default `enabled`.
 - mongodb_admin_user: when adding auth, the login credentials to use
 - mongodb_admin_pwd: For production use - please change the admin password!
 - mongodb_admin_roles: allow for alternate admin roles (eg userAdminAnyDatabase)

@@ -1,8 +1,0 @@
-- hosts: mongodbsvrs
-  vars_files:
-    - vars/default.yml
-
-  tasks:
-    - name: Confiure Operating System
-      include_role:
-        name: mongodb_linux

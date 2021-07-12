@@ -1,29 +1,30 @@
 - hosts: mongodbsvrs
-  roles:
-      - { role: "mongodb_linux" }
-      - { role: "mongodb_install" }
-      - { role: "mongodb_mongod" }
-  vars:
-    - mongodb_master: mongodb-ansible-1
+  vars_files:
+    - vars/default.yml
 
   tasks:
+    - name: Confiure Operating System
+      include_role:
+        name: mongodb_linux
 
-    - name: Initialise MongoDB Replicaset rs0
+    - name: Install MongoDB Packages
+      include_role:
+        name: mongodb_install
+
+    - name: Setup of MongoDB Service
+      include_role:
+        name: mongodb_mongod
+
+    - name: Initialise MongoDB Replicaset
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
-        replica_set: "rs0"
-        members:
-          - "ansible-1"
-          - "ansible-2"
-          - "ansible-3"
+        replica_set: "{{ repl_set_name }}"
+        members: "{{ replica_set_members }}"
       when: ansible_hostname == mongodb_master
       register: repl
 
-    - name: Import mongodb_auth role
+    - name: Initialise MongoDB Replicaset Authentication
       include_role:
         name: mongodb_auth
-      vars:
-        mongodb_host: "127.0.0.1"
-        mongodb_admin_pwd: "admin"
       when: ansible_hostname == mongodb_master

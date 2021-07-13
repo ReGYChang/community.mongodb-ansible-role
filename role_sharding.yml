@@ -9,6 +9,15 @@
     - name: Confiure Operating System
       include_role:
         name: mongodb_linux
+      vars:
+        mongodb_hosts: |
+          10.140.0.42 ansible-1 # Add by Ansible
+          10.140.0.75 ansible-2 # Add by Ansible
+          10.140.0.76 ansible-3 # Add by Ansible
+          10.140.0.77 ansible-4 # Add by Ansible
+          10.140.0.78 ansible-5 # Add by Ansible
+          10.140.0.79 ansible-6 # Add by Ansible
+          10.140.0.80 ansible-7 # Add by Ansible
 
     - name: Install MongoDB Packages
       include_role:
@@ -34,6 +43,11 @@
     - name: Initialise Configsvr Replicaset Authentication
       include_role:
         name: mongodb_auth
+      vars:
+        mongodb_port: 27019
+        mongodb_admin_user: admin
+        mongodb_admin_pwd: admin
+        mongodb_admin_roles: root
       when: ansible_hostname == configsvr_master
 
 - hosts: mongodbsvrs
@@ -72,7 +86,7 @@
         name: mongodb_auth
       when: ansible_hostname == mongodb_master
 
-- hosts: monogs
+- hosts: mongos
   tasks:
     - name: Initalise Mongos Instance
       include_role:

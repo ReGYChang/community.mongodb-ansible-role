@@ -9,15 +9,6 @@
     - name: Confiure Operating System
       include_role:
         name: mongodb_linux
-      vars:
-        mongodb_hosts: |
-          10.140.0.42 ansible-1 # Add by Ansible
-          10.140.0.75 ansible-2 # Add by Ansible
-          10.140.0.76 ansible-3 # Add by Ansible
-          10.140.0.77 ansible-4 # Add by Ansible
-          10.140.0.78 ansible-5 # Add by Ansible
-          10.140.0.79 ansible-6 # Add by Ansible
-          10.140.0.80 ansible-7 # Add by Ansible
 
     - name: Install MongoDB Packages
       include_role:
@@ -53,8 +44,6 @@
 - hosts: mongodbsvrs
   vars:
     - master_shard_1: mongodb-ansible-1
-  vars_files:
-    - vars/default.yml
 
   tasks:
     - name: Confiure Operating System
@@ -68,6 +57,8 @@
     - name: Setup of MongoDB Service
       include_role:
         name: mongodb_mongod
+      vars:
+        - sharding: true
 
     - name: Initialise MongoDB Replicaset
       mongodb_replicaset:
@@ -88,6 +79,14 @@
 
 - hosts: mongos
   tasks:
-    - name: Initalise Mongos Instance
+    - name: Confiure Operating System
+      include_role:
+        name: mongodb_linux
+
+    - name: Install MongoDB Packages
+      include_role:
+        name: mongodb_install
+
+    - name: Setup of Mongos Service and Add Replicaset Into Shard
       include_role:
         name: mongodb_mongos

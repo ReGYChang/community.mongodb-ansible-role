@@ -59,5 +59,8 @@
     state: started
     enabled: yes
 
+- pause:
+    seconds: 10
+
 - name: Add replica set into shard cluster
   shell:  chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongos_port }} addShard.js

@@ -43,7 +43,8 @@
 
 - hosts: mongodbsvrs
   vars:
-    - master_shard_1: mongodb-ansible-1
+    - mongodb_master: mongodb-ansible-1
+    - repl_set_name: rs0
 
   tasks:
     - name: Confiure Operating System
@@ -58,7 +59,11 @@
       include_role:
         name: mongodb_mongod
       vars:
-        - sharding: true
+        mongodb_port: 27019
+        mongodb_admin_user: admin
+        mongodb_admin_pwd: admin
+        mongodb_admin_roles: root
+        sharding: true
 
     - name: Initialise MongoDB Replicaset
       mongodb_replicaset:
@@ -68,9 +73,6 @@
         members: "{{ replica_set_members }}"
       when: ansible_hostname == mongodb_master
       register: repl
-
-    - debug:
-        msg: "{{ repl }}"
 
     - name: Initialise MongoDB Replicaset Authentication
       include_role:

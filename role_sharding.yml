@@ -1,9 +1,7 @@
 - hosts: configsvrs
-  vars:
-    - configsvr_master: mongodb-ansible-4
-    - configsvr_repl_set_name: cfg
   vars_files:
   - vars/default.yml
+  - vars/default_configsvr.yml
 
   tasks:
     - name: Confiure Operating System
@@ -34,21 +32,11 @@
     - name: Initialise Configsvr Replicaset Authentication
       include_role:
         name: mongodb_auth
-      vars:
-        mongodb_port: 27019
-        mongodb_admin_user: admin
-        mongodb_admin_pwd: admin
-        mongodb_admin_roles: root
       when: ansible_hostname == configsvr_master
 
 - hosts: mongodbsvrs
-  vars:
-    - mongodb_master: mongodb-ansible-1
-    - repl_set_name: rs0
-    - replica_set_members:
-      - "ansible-1:27019"
-      - "ansible-2:27019"
-      - "ansible-3:27019"
+  vars_files:
+    - vars/default.yml
 
   tasks:
     - name: Confiure Operating System
@@ -62,18 +50,12 @@
     - name: Setup of MongoDB Service
       include_role:
         name: mongodb_mongod
-      vars:
-        mongodb_port: 27019
-        mongodb_admin_user: admin
-        mongodb_admin_pwd: admin
-        mongodb_admin_roles: root
-        sharding: true
 
     - name: Initialise MongoDB Replicaset
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
-        login_port: 27019
+        login_port: "{{ mongodb_port }}"
         replica_set: "{{ repl_set_name }}"
         members: "{{ replica_set_members }}"
       when: ansible_hostname == mongodb_master
@@ -85,6 +67,9 @@
       when: ansible_hostname == mongodb_master
 
 - hosts: mongos
+  vars_files:
+    - vars/default.yml
+    - vars/default_mongos.yml
   tasks:
     - name: Confiure Operating System
       include_role:

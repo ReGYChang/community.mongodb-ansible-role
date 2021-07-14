@@ -45,6 +45,10 @@
   vars:
     - mongodb_master: mongodb-ansible-1
     - repl_set_name: rs0
+    - replica_set_members:
+      - "ansible-1:27019"
+      - "ansible-2:27019"
+      - "ansible-3:27019"
 
   tasks:
     - name: Confiure Operating System
@@ -69,6 +73,7 @@
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
+        login_port: 27019
         replica_set: "{{ repl_set_name }}"
         members: "{{ replica_set_members }}"
       when: ansible_hostname == mongodb_master

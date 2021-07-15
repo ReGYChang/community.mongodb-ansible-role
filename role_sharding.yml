@@ -20,12 +20,9 @@
       mongodb_replicaset:
         login_database: "admin"
         login_host: localhost
-        login_port: 27019
+        login_port: "{{ configsvr_port }}"
         replica_set: "{{ configsvr_repl_set_name }}"
-        members:
-          - "ansible-4:27019"
-          - "ansible-5:27019"
-          - "ansible-6:27019"
+        members: "{{ configsvr_replica_set_members }}"
       when: ansible_hostname == configsvr_master
       register: repl
 

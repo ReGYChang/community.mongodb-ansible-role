@@ -9,7 +9,7 @@ bind_ip: 0.0.0.0
 
 # mongos_port in vars to facilitate molecule tests
 configsvr_repl_set_name: cfg
-config_servers: "ansible-4:27019,ansible-5:27019,ansible-6:27019"
+config_servers: "ansible-4:27019,ansible-5:27019,ansible-6:27019"  # Required
 
 openssl_keyfile_content: |
   Z2CeA9BMcoY5AUWoegjv/XWL2MA1SQcL4HvmRjYaTjSp/xosJy+LL2X3OQb1xVWC
@@ -32,6 +32,6 @@ openssl_keyfile_content: |
 mongos_config_template: "mongos.conf.j2"
 skip_restart: true
 
-shard_info:
+shard_info:  # Required
   - repl_set_name: "{{ repl_set_name }}"
     host: "ansible-1:{{ mongodb_port }}"

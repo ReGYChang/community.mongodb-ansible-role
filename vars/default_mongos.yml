@@ -1,6 +1,8 @@
 # Default vars for mongos deployment
 
 mongos_port: 27020
+mongodb_user: "mongod"
+mongodb_group: "mongod"
 mongos_service: "mongos"
 
 # defaults file for mongodb_mongos

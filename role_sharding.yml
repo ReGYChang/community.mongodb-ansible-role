@@ -29,6 +29,8 @@
     - name: Initialise Configsvr Replicaset Authentication
       include_role:
         name: mongodb_auth
+      vars:
+        mongodb_port: "{{ configsvr_port }}"
       when: ansible_hostname == configsvr_master
 
 - hosts: mongodbsvrs

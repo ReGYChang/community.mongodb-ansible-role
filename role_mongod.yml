@@ -1,0 +1,18 @@
+# role for mongodb stanalone setup
+
+- hosts: mongodbsvrs
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Confiure Operating System
+      include_role:
+        name: mongodb_linux
+
+    - name: Install MongoDB Packages
+      include_role:
+        name: mongodb_install
+
+    - name: Setup of MongoDB Service
+      include_role:
+        name: mongodb_mongod

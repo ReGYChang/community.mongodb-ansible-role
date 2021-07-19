@@ -1,17 +1,17 @@
 ---
 # defaults file for mongodb_auth
-mongodb_port: 27017
+# mongodb_port: 27017
 
-authorization: "enabled"
+# authorization: "enabled"
 
 # when adding auth, the login credentials to use
-mongodb_admin_user: admin
+# mongodb_admin_user: admin
 # For production use - please change the admin password!
-mongodb_admin_pwd: "{{ mongodb_default_admin_pwd }}"
+# mongodb_admin_pwd: "{{ mongodb_default_admin_pwd }}"
 # The default is separate so other roles can provide a default without overriding a user provided password.
 mongodb_default_admin_pwd: admin
 # allow for alternate admin roles (eg userAdminAnyDatabase)
-mongodb_admin_roles: "root"
+# mongodb_admin_roles: "root"
 
 # Additional users to add.
 mongodb_users: []

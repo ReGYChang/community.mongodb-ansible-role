@@ -49,6 +49,8 @@
     - name: Setup of MongoDB Service
       include_role:
         name: mongodb_mongod
+      vars:
+        sharding: true
 
     - name: Initialise MongoDB Replicaset
       mongodb_replicaset:

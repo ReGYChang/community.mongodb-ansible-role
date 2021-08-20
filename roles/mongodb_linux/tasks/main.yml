@@ -73,16 +73,16 @@
     value: "{{ swappiness }}"
     state: present
 
-- name: Ensure ntp service is installed
-  package:
-    name: "{{ ntp_package }}"
-    state: present
-  register: _pkg
-  until: _pkg is succeeded
-  retries: 5
+# - name: Ensure ntp service is installed
+#   package:
+#     name: "{{ ntp_package }}"
+#     state: present
+#   register: _pkg
+#   until: _pkg is succeeded
+#   retries: 5
 
-- name: Ensure ntp service is configured
-  service:
-    name: "{{ ntp_service }}"
-    state: started
-    enabled: yes
+# - name: Ensure ntp service is configured
+#   service:
+#     name: "{{ ntp_service }}"
+#     state: started
+#     enabled: yes

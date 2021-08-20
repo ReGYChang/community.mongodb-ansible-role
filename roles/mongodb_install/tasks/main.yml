@@ -11,10 +11,10 @@
       files:
         - main.yml
 
-- name: Install required packages
-  yum:
-    name: "{{ yum_packages }}"
-    state: present
+# - name: Install required packages
+#   yum:
+#     name: "{{ yum_packages }}"
+#     state: present
 
 - name: Create mongod dir
   file:

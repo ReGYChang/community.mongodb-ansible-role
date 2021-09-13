@@ -1,16 +1,5 @@
 ---
 # task file for linux configuration
-
-- name: Include OS-specific vars
-  include_vars:
-    file: "{{ lookup('first_found', params) }}"
-  vars:
-    params:
-      paths:
-        - "vars"
-      files:
-        - "{{ ansible_facts.distribution }}-{{ ansible_distribution_major_version }}.yml"
-
 - name: Ensure hosts connection in /etc/hosts
   lineinfile:
     dest: /etc/hosts
@@ -60,6 +49,9 @@
     value: "{{ swappiness }}"
     state: present
 
+- name: Run OS-specific tasks
+  include_tasks: "{{ ansible_facts.os_family }}.yml"
+  
 # - name: Ensure ntp service is installed
 #   package:
 #     name: "{{ ntp_package }}"

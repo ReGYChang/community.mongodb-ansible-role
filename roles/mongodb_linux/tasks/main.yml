@@ -60,9 +60,6 @@
     value: "{{ swappiness }}"
     state: present
 
-- name: Run OS-specific tasks
-  include_tasks: "{{ ansible_facts.os_family }}.yml" 
-
 # - name: Ensure ntp service is installed
 #   package:
 #     name: "{{ ntp_package }}"

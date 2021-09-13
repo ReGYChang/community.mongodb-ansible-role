@@ -1,6 +1,6 @@
 - name: Setup mongod service
   copy:
-    src: mongod.service
+    src: mongod_debian.service
     dest: /lib/systemd/system/mongod.service
     owner: root
     group: root

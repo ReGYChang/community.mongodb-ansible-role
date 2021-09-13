@@ -1,6 +1,6 @@
 - name: Setup mongod service
   copy:
-    src: mongod.service
-    dest: /usr/lib/systemd/system/mongod.service
+    src: mongod_centos.service
+    dest: /lib/systemd/system/mongod.service
     owner: root
     group: root

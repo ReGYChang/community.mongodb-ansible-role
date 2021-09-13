@@ -18,13 +18,6 @@
     line: "{{ item }}"
   with_items: "{{ mongodb_hosts }}"
 
-
-- name: Disable selinux
-  lineinfile:
-    dest: /etc/selinux/config
-    regexp: '^SELINUX='
-    line: 'SELINUX=disabled'
-
 # https://docs.mongodb.com/manual/tutorial/transparent-huge-pages/
 - name: Ensure thp-disable service exists
   copy:
@@ -38,14 +31,14 @@
   shell: cat /sys/kernel/mm/transparent_hugepage/enabled
   register: _huge_page_status
   ignore_errors: yes
-  changed_when: _huge_page_status.stdout == "[always] madvise never"
+  changed_when: _huge_page_status.stdout != "always madvise [never]"
 
 - name: Enable disable-transparent-huge-pages service
   service:
     name: disable-transparent-huge-pages.service
     state: started
     enabled: yes
-  when: _huge_page_status.stdout == "[always] madvise never"
+  when: _huge_page_status.stdout != "always madvise [never]"
 
 - name: Ensure NUMA zone reclaim is disabled
   sysctl:
@@ -53,12 +46,6 @@
     value: '0'
     state: present
     reload: yes
-
-- name: Disable firewalld in RHEL
-  service:
-    name: firewalld
-    state: stopped
-    enabled: no
 
 - name: Set nproc and nofile
   copy:
@@ -73,16 +60,19 @@
     value: "{{ swappiness }}"
     state: present
 
-- name: Ensure ntp service is installed
-  package:
-    name: "{{ ntp_package }}"
-    state: present
-  register: _pkg
-  until: _pkg is succeeded
-  retries: 5
+- name: Run OS-specific tasks
+  include_tasks: "{{ ansible_facts.os_family }}.yml" 
 
-- name: Ensure ntp service is configured
-  service:
-    name: "{{ ntp_service }}"
-    state: started
-    enabled: yes
+# - name: Ensure ntp service is installed
+#   package:
+#     name: "{{ ntp_package }}"
+#     state: present
+#   register: _pkg
+#   until: _pkg is succeeded
+#   retries: 5
+
+# - name: Ensure ntp service is configured
+#   service:
+#     name: "{{ ntp_service }}"
+#     state: started
+#     enabled: yes

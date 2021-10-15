@@ -1,0 +1,22 @@
+- name: Copy mongodb package
+  unarchive:
+    src: mongodb-linux-x86_64-ubuntu1604-{{  mongodb_version  }}.tgz
+    dest: /opt/OmniMongoDB
+    copy: yes
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+
+- name: Create mongodb package symlink
+  file:
+    src: /opt/OmniMongoDB/mongodb-linux-x86_64-ubuntu1604-{{  mongodb_version  }}
+    dest: /opt/OmniMongoDB/mongodb
+    state: link
+    owner: "{{ mongodb_user }}"
+    group: "{{ mongodb_group }}"
+
+- name: Setup mongod service
+  copy:
+    src: mongod_debian.service
+    dest: /lib/systemd/system/mongod.service
+    owner: root
+    group: root

@@ -41,21 +41,8 @@
     owner: "{{ mongodb_user }}"
     group: "{{ mongodb_group }}"
 
-- name: Copy mongodb package
-  unarchive:
-    src: mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}.tgz
-    dest: /opt/OmniMongoDB
-    copy: yes
-    owner: "{{ mongodb_user }}"
-    group: "{{ mongodb_group }}"
-
-- name: Create mongodb package symlink
-  file:
-    src: /opt/OmniMongoDB/mongodb-linux-x86_64-rhel70-{{  mongodb_version  }}
-    dest: /opt/OmniMongoDB/mongodb
-    state: link
-    owner: "{{ mongodb_user }}"
-    group: "{{ mongodb_group }}"
+- name: Setup mongod packages and service
+  include_tasks: "setup_pkg_{{ ansible_facts.os_family }}.yml"
 
 - name: Create mongodb binary symlink
   file:
@@ -76,9 +63,6 @@
     - mongorestore
     - mongos
     - mongotop
-
-- name: Setup mongod service
-  include_tasks: "setup_service_{{ ansible_facts.os_family }}.yml"
 
 - name: Reload systemd
   systemd:

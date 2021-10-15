@@ -1,8 +1,8 @@
 ---
 
-mongodb_user: "mongod"
-mongodb_group: "mongod"
-mongod_service: "mongod"
+# mongodb_user: "mongod"
+# mongodb_group: "mongod"
+# mongod_service: "mongod"
 
 mongod_config_template: "mongod.conf.j2"
 

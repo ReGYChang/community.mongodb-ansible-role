@@ -10,6 +10,9 @@ mongodb_version: 4.2.15
 #############################################################################
 ### mongod config ###
 # mongodb
+mongodb_user: "mongod"
+mongodb_group: "mongod"
+mongod_service: "mongod"
 mongodb_master: mongodb-ansible-1
 db_path: /data
 log_path: /data/log

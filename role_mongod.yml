@@ -16,3 +16,5 @@
     - name: Setup of MongoDB Service
       include_role:
         name: mongodb_mongod
+      vars:
+        replicaset: false

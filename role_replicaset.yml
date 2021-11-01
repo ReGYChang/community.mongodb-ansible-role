@@ -19,12 +19,8 @@
         sharding: false
 
     - name: Initialise MongoDB Replicaset
-      mongodb_replicaset:
-        login_database: "admin"
-        login_host: localhost
-        login_port: "{{ mongodb_port }}"
-        replica_set: "{{ repl_set_name }}"
-        members: "{{ replica_set_members }}"
+      include_role:
+        name: mongodb_repl
       when: ansible_hostname == mongodb_master
       register: repl
 

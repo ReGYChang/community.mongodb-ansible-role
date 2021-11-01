@@ -1,0 +1,8 @@
+- name: Initialise MongoDB Replicaset
+  shell:  chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} --eval rs.initiate()
+
+- pause:
+    seconds: 30
+
+- name: Add Replicaset Member into cluster
+  shell:  chdir=/opt/OmniMongoDB/ansible mongo --port {{ mongodb_port }} initRepl.js

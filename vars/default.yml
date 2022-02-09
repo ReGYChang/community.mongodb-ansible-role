@@ -6,7 +6,8 @@
 mongodb_hosts: ""
 #############################################################################
 ### install config ###
-mongodb_version: 4.2.15
+mongodb_version: 4.2.17
+mongodb_edition: ""  # enterprise-
 #############################################################################
 ### mongod config ###
 # mongodb

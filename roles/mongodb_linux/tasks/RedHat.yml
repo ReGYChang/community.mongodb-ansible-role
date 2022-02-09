@@ -1,0 +1,11 @@
+- name: Disable firewalld in RHEL
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Disable selinux
+  lineinfile:
+    dest: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=disabled'
